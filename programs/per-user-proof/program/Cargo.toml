@@ -1,0 +1,11 @@
+[workspace]
+[package]
+version = "0.0.1"
+name = "per-user-proof"
+edition = "2021"
+publish = false
+
+[dependencies]
+alloy-sol-types = "0.8.3"
+sp1-zkvm = "1.2.0"
+raffle-lib = { path = "../../../lib" }

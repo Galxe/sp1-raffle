@@ -1,0 +1,21 @@
+[package]
+name = "per-user-proof-script"
+default-run = "per-user-proof-script"
+version = { workspace = true }
+edition = { workspace = true }
+
+[[bin]]
+name = "per-user-proof-script"
+path = "src/bin/main.rs"
+
+[[bin]]
+name = "evm"
+path = "src/bin/evm.rs"
+
+[dependencies]
+sp1-sdk = { workspace = true }
+alloy-sol-types = { workspace = true }
+clap = { workspace = true }
+
+[build-dependencies]
+sp1-helper = { workspace = true }

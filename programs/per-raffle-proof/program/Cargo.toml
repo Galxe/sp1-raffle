@@ -1,0 +1,15 @@
+[workspace]
+[package]
+version = "0.0.1"
+name = "per-raffle-proof"
+edition = "2021"
+publish = false
+
+[dependencies]
+alloy-sol-types = "0.8.3"
+sp1-zkvm = "1.2.0"
+sha2-v0-9-8 = { version = "0.9.8", package = "sha2" }
+raffle-lib = { path = "../../../lib" }
+
+[patch.crates-io]
+sha2-v0-9-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", branch = "patch-sha2-v0.9.8" }

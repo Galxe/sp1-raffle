@@ -3577,6 +3577,8 @@ dependencies = [
  "alloy-sol-types 0.8.3",
  "clap",
  "hex",
+ "serde",
+ "serde_json",
  "sp1-helper",
  "sp1-sdk",
 ]
@@ -3587,6 +3589,9 @@ version = "0.0.1"
 dependencies = [
  "alloy-sol-types 0.8.3",
  "clap",
+ "hex",
+ "serde",
+ "serde_json",
  "sp1-helper",
  "sp1-sdk",
 ]

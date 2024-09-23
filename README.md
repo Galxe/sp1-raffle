@@ -92,3 +92,9 @@ command:
 ```sh
 SP1_PROVER=network SP1_PRIVATE_KEY=... cargo run --release --bin evm
 ```
+
+# TODO
+
+- prover network cost?
+- lightest hash algorithm?
+- use case improvements?

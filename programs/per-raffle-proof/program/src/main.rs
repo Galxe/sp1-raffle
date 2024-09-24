@@ -1,8 +1,4 @@
 //! A program that selects winners for a raffle and generates a Merkle root of the winners
-//!
-//! This program takes the number of participants, number of winners, and a random seed as input.
-//! It then selects the winners using a Fisher-Yates shuffle algorithm and calculates a Merkle root
-//! of the winning participant IDs. The program outputs the Merkle root along with the input parameters.
 
 #![no_main]
 sp1_zkvm::entrypoint!(main);
@@ -17,20 +13,30 @@ pub fn main() {
     let num_participants = sp1_zkvm::io::read::<u32>();
     let num_winners = sp1_zkvm::io::read::<u32>();
     let random_seed = sp1_zkvm::io::read::<u64>();
+    let pub_val: PubValStruct;
 
     // Run the raffle and get winners
-    println!("cycle-tracker-start: raffle");
-    let winners = raffle_naive(num_participants, num_winners, random_seed);
-    let winners_merkle_root = calculate_merkle_root(&winners);
-    println!("cycle-tracker-end: raffle");
 
-    // Encode the public values of the program
-    let pub_val: PubValStruct = PubValStruct {
-        num_participants,
-        num_winners,
-        random_seed,
-        winners_merkle_root: alloy_sol_types::private::FixedBytes(winners_merkle_root),
-    };
+    if num_winners > num_participants / 2 {
+        let winners = raffle_naive(num_participants, num_winners, random_seed);
+        let winners_merkle_root = calculate_merkle_root(&winners);
+        pub_val = PubValStruct {
+            num_participants,
+            num_winners,
+            random_seed,
+            merkle_root: alloy_sol_types::private::FixedBytes(winners_merkle_root),
+        };
+    } else {
+        let losers = raffle_naive(num_participants, num_winners, random_seed);
+        let losers_merkle_root = calculate_merkle_root(&losers);
+        pub_val = PubValStruct {
+            num_participants,
+            num_winners,
+            random_seed,
+            merkle_root: alloy_sol_types::private::FixedBytes(losers_merkle_root),
+        };
+    }
+
     let bytes = PubValStruct::abi_encode(&pub_val);
 
     // Commit to the public values of the program
@@ -43,7 +49,7 @@ sol! {
         uint32 num_participants;
         uint32 num_winners;
         uint64 random_seed;
-        bytes32 winners_merkle_root;
+        bytes32 merkle_root;
     }
 }
 

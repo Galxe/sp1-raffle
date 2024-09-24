@@ -10,13 +10,13 @@ path = "src/raffle.rs"
 [dependencies]
 alloy-sol-types = { workspace = true }
 sp1-zkvm = { workspace = true }
-# sha2-v0-9-8 = { version = "0.9.8", package = "sha2" }
-sha2-v0-10-8 = { version = "0.10.8", package = "sha2" }
+sha2-v0-9-8 = { version = "0.9.8", package = "sha2" }
+# sha2-v0-10-8 = { version = "0.10.8", package = "sha2" }
 # sha3-v0-10-8 = { version = "0.10.8", package = "sha3" }
 # tiny-keccak = { version = "2.0", features = ["sha3"] }
 
 [patch.crates-io]
-# sha2-v0-9-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", branch = "patch-sha2-v0.9.8" }
-sha2-v0-10-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", branch = "patch-sha2-v0.10.8" }
+sha2-v0-9-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", branch = "patch-sha2-v0.9.8" }
+# sha2-v0-10-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha2", branch = "patch-sha2-v0.10.8" }
 # sha3-v0-10-8 = { git = "https://github.com/sp1-patches/RustCrypto-hashes", package = "sha3", branch = "patch-sha3-v0.10.8" }
 # tiny-keccak = { git = "https://github.com/sp1-patches/tiny-keccak", branch = "patch-v2.0.2" }

@@ -1,9 +1,11 @@
-# ZK Raffle POC
+# ZK Raffle POC with SP1
 
 ## Structure
 
 - [Per Raffle Proof](programs/per-raffle-proof/README.md)
 - [Per User Proof](programs/per-user-proof/README.md)
+
+Note that we have chosen the per raffle proof approach. Per user proof README is no longer maintained.
 
 ## Requirements
 
@@ -17,7 +19,7 @@ generate an EVM-compatible proof.
 
 ### Build the Program
 
-To build the program, run the following command:
+To build the program, run the following command in the `program` directory:
 
 ```sh
 cd program
@@ -92,9 +94,3 @@ command:
 ```sh
 SP1_PROVER=network SP1_PRIVATE_KEY=... cargo run --release --bin evm
 ```
-
-# TODO
-
-- prover network cost?
-- lightest hash algorithm?
-- use case improvements?

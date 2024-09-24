@@ -31,7 +31,7 @@ sol! {
         uint32 num_participants;
         uint32 num_winners;
         uint64 random_seed;
-        bytes32 winners_merkle_root;
+        bytes32 merkle_root;
     }
 }
 
@@ -66,7 +66,7 @@ fn main() {
             num_participants,
             num_winners,
             random_seed,
-            winners_merkle_root,
+            merkle_root,
         } = decoded;
 
         // Verify that the output matches the input
@@ -78,10 +78,7 @@ fn main() {
         assert_eq!(random_seed, args.random_seed, "Random seed mismatch");
         println!("All input values match the output values.");
 
-        println!(
-            "Winners Merkle Root: 0x{}",
-            hex::encode(winners_merkle_root)
-        );
+        println!("Merkle Root: 0x{}", hex::encode(merkle_root));
 
         // Record the number of cycles executed.
         println!("Number of cycles: {}", report.total_instruction_count());

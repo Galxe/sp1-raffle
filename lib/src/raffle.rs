@@ -1,24 +1,46 @@
-// use sha2_v0_9_8::{Digest as Digest_sha2_9_8, Sha256 as Sha256_9_8};
-use sha2_v0_10_8::{Digest as Digest_sha2_10_8, Sha256 as Sha256_10_8};
+use sha2_v0_9_8::{Digest as Digest_sha2_9_8, Sha256 as Sha256_9_8};
+// use sha2_v0_10_8::{Digest as Digest_sha2_10_8, Sha256 as Sha256_10_8};
 // use sha3_v0_10_8::{Digest as Digest_sha3_10_8, Keccak256 as Keccak256_10_8};
+use std::collections::HashSet;
 // use tiny_keccak::{Hasher, Keccak as Tiny_Keccak};
 
-/// Naive raffle implementation
+/// Optimized naive raffle implementation
 pub fn raffle_naive(num_participants: u32, num_winners: u32, random_seed: u64) -> Vec<u32> {
-    let mut winners = Vec::new();
-    let mut seed = random_seed;
-    let n = num_participants;
-    let m = num_winners;
+    let n = num_participants as usize;
+    let m = num_winners as usize;
 
-    while winners.len() < m as usize {
-        let new_winner = (seed % n as u64) as u32;
-        if !winners.contains(&new_winner) {
-            winners.push(new_winner);
+    // If winners are more than half, select losers instead
+    if m > n / 2 {
+        let num_losers = n - m;
+        let mut losers = Vec::with_capacity(num_losers);
+        let mut used_numbers = HashSet::with_capacity(num_losers);
+        let mut seed = random_seed;
+
+        while losers.len() < num_losers {
+            let new_loser = (seed % n as u64) as u32;
+            if used_numbers.insert(new_loser) {
+                losers.push(new_loser);
+            }
+            seed = hash_sha2(seed, new_loser as u64);
         }
-        seed = hash_sha2(seed, new_winner as u64);
-    }
 
-    winners
+        losers
+    } else {
+        // Original logic for when winners are less than or equal to half
+        let mut winners = Vec::with_capacity(m);
+        let mut used_numbers = HashSet::with_capacity(m);
+        let mut seed = random_seed;
+
+        while winners.len() < m {
+            let new_winner = (seed % n as u64) as u32;
+            if used_numbers.insert(new_winner) {
+                winners.push(new_winner);
+            }
+            seed = hash_sha2(seed, new_winner as u64);
+        }
+
+        winners
+    }
 }
 
 /// Raffle implementation using the Fisher-Yates shuffle
@@ -39,7 +61,7 @@ pub fn raffle_fisher_yates(num_participants: u32, num_winners: u32, random_seed:
 }
 
 fn hash_sha2(seed: u64, value: u64) -> u64 {
-    let mut sha256: Sha256_10_8 = Sha256_10_8::new();
+    let mut sha256: Sha256_9_8 = Sha256_9_8::new();
     sha256.update(seed.to_le_bytes());
     sha256.update(value.to_le_bytes());
     let result = sha256.finalize();

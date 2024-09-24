@@ -2,9 +2,10 @@
 
 ## Notes
 
-- Hash function: sha256
-  - Using patched crate to improve performance: https://docs.succinct.xyz/writing-programs/patched-crates.html
-- Shuffle: Fisher-Yates
+**Below info is now out of date. We decided to use per-raffle proof instead or per-user proof.**
+**Also cycle counts below are not accurate since it used list.contains() to during shuffle instead of hashset.**
+
+- Using patched crate to improve performance: https://docs.succinct.xyz/writing-programs/patched-crates.html
 
 ## Performance （cycle tracking)
 

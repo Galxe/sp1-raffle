@@ -1,7 +1,6 @@
 [workspace]
 members = [
     "lib",
-    "programs/per-user-proof/script",
     "programs/per-raffle-proof/script",
 ]
 resolver = "2"

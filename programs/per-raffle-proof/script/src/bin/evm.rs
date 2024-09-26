@@ -52,7 +52,7 @@ struct SP1ProofFixture {
     num_participants: u32,
     num_winners: u32,
     random_seed: u64,
-    winners_merkle_root: String,
+    merkle_root: String,
     vkey: String,
     public_values: String,
     proof: String,
@@ -64,7 +64,7 @@ sol! {
         uint32 num_participants;
         uint32 num_winners;
         uint64 random_seed;
-        bytes32 winners_merkle_root;
+        bytes32 merkle_root;
     }
 }
 
@@ -114,7 +114,7 @@ fn create_proof_fixture(
         num_participants,
         num_winners,
         random_seed,
-        winners_merkle_root,
+        merkle_root,
     } = PubValStruct::abi_decode(bytes, false).unwrap();
 
     // Create the testing fixture so we can test things end-to-end.
@@ -122,7 +122,7 @@ fn create_proof_fixture(
         num_participants,
         num_winners,
         random_seed,
-        winners_merkle_root: format!("0x{}", hex::encode(winners_merkle_root.as_slice())),
+        merkle_root: format!("0x{}", hex::encode(merkle_root.as_slice())),
         vkey: vk.bytes32().to_string(),
         public_values: format!("0x{}", hex::encode(bytes)),
         proof: format!("0x{}", hex::encode(proof.bytes())),

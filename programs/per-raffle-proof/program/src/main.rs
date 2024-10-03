@@ -1,4 +1,4 @@
-//! A program that selects winners for a raffle and generates a Merkle root of the winners
+//! A program that selects winners for a raffle and generates a Merkle root for winners
 
 #![no_main]
 sp1_zkvm::entrypoint!(main);
@@ -13,29 +13,19 @@ pub fn main() {
     let num_participants = sp1_zkvm::io::read::<u32>();
     let num_winners = sp1_zkvm::io::read::<u32>();
     let random_seed = sp1_zkvm::io::read::<u64>();
-    let pub_val: PubValStruct;
 
     // Run the raffle and get winners
+    let winners = raffle_naive(num_participants, num_winners, random_seed);
 
-    if num_winners > num_participants / 2 {
-        let winners = raffle_naive(num_participants, num_winners, random_seed);
-        let winners_merkle_root = calculate_merkle_root(&winners);
-        pub_val = PubValStruct {
-            num_participants,
-            num_winners,
-            random_seed,
-            merkle_root: alloy_sol_types::private::FixedBytes(winners_merkle_root),
-        };
-    } else {
-        let losers = raffle_naive(num_participants, num_winners, random_seed);
-        let losers_merkle_root = calculate_merkle_root(&losers);
-        pub_val = PubValStruct {
-            num_participants,
-            num_winners,
-            random_seed,
-            merkle_root: alloy_sol_types::private::FixedBytes(losers_merkle_root),
-        };
-    }
+    // Calculate Merkle root for winners
+    let merkle_root = calculate_merkle_root(&winners);
+
+    let pub_val = PubValStruct {
+        num_participants,
+        num_winners,
+        random_seed,
+        merkle_root: alloy_sol_types::private::FixedBytes(merkle_root),
+    };
 
     let bytes = PubValStruct::abi_encode(&pub_val);
 

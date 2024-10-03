@@ -3584,19 +3584,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "per-user-proof-script"
-version = "0.0.1"
-dependencies = [
- "alloy-sol-types 0.8.3",
- "clap",
- "hex",
- "serde",
- "serde_json",
- "sp1-helper",
- "sp1-sdk",
-]
-
-[[package]]
 name = "percent-encoding"
 version = "2.3.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"

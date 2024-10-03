@@ -3,9 +3,8 @@
 ## Structure
 
 - [Per Raffle Proof](programs/per-raffle-proof/README.md)
-- [Per User Proof](programs/per-user-proof/README.md)
 
-Note that we have chosen the per raffle proof approach. Per user proof README is no longer maintained.
+Note that we have chosen the per raffle proof approach. Previous commits include a different per user proof approach.
 
 ## Requirements
 
@@ -22,7 +21,7 @@ generate an EVM-compatible proof.
 To build the program, run the following command in the `program` directory:
 
 ```sh
-cd program
+cd programs/per-raffle-proof/program
 cargo prove build
 ```
 
@@ -31,7 +30,7 @@ cargo prove build
 To run the program without generating a proof:
 
 ```sh
-cd script
+cd programs/per-raffle-proof/script
 cargo run --release -- --execute
 ```
 
@@ -42,7 +41,7 @@ This will execute the program and display the output.
 To generate a core proof for your program:
 
 ```sh
-cd script
+cd programs/per-raffle-proof/script
 cargo run --release -- --prove
 ```
 
@@ -54,7 +53,7 @@ cargo run --release -- --prove
 To generate a proof that is small enough to be verified on-chain and verifiable by the EVM:
 
 ```sh
-cd script
+cd programs/per-raffle-proof/script
 cargo run --release --bin evm -- --system plonk
 ```
 
